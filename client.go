@@ -13,10 +13,16 @@ type MockClient struct {
 	restyClient *resty.Client
 }
 
+// NewClient creates a new client provided its host and port
 func NewClient(host string, port int) MockClient {
+	return NewClientURL(fmt.Sprintf("http://%s:%d", host, port))
+}
+
+// NewClientURL creates a new client provided its URL
+func NewClientURL(url string) MockClient {
 	return MockClient{
 		restyClient: resty.New().
-			SetHostURL(fmt.Sprintf("http://%s:%d", host, port)),
+			SetHostURL(url),
 	}
 }
 
